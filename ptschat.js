@@ -40,13 +40,15 @@ if (Meteor.isClient) {
     "click #messageSubmit": function (evt, templ) {
 
       var message = templ.find('#messageText').value;
+      var messageTitle = templ.find('#messageTitle').value;
 
       Messages.insert({
-        message: message, 
+        messageTitle: messageTitle, 
+        message: message,
         score: 1,
         email: getCurrEmail(),
-        votes: [Meteor.userId()] 
-
+        votes: [Meteor.userId()] ,
+        createdAt: new Date().valueOf()
       });
     }
   })

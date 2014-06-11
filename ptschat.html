@@ -1,0 +1,45 @@
+<head>
+  <title>ptschat</title>
+</head>
+
+<body>
+  {{> loginButtons }}
+  {{> messages}}
+
+</body>
+
+
+<template name="messages">
+  {{#if userId}}
+    <h1>What do you think of the NHL Finals?</h1>
+    <form action="">
+      <input type="text" id="messageText" />
+      <input type="button" id="messageSubmit" value="Submit" />
+    </form>
+  {{/if}}
+
+  {{#each allMessages}}
+  <h3>
+    {{ message }}
+    {{ score }}
+    {{#if showArrow}}
+    <a class="vote">&uarr;</a>
+    {{/if}}
+  </h3>
+
+  <p>Submitted by: {{ email }}</p>
+  {{/each}}
+
+</template>
+
+
+
+
+
+
+
+
+
+
+
+

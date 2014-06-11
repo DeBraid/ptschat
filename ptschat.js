@@ -38,18 +38,35 @@ if (Meteor.isClient) {
     },
 
     "click #messageSubmit": function (evt, templ) {
+        evt.preventDefault();
 
-      var message = templ.find('#messageText').value;
-      var messageTitle = templ.find('#messageTitle').value;
+      var message = templ.find('#messageText').value,
+          messageTitle = templ.find('#messageTitle').value,
+          warning = templ.find('#valid') || templ.find('#invalid');
 
-      Messages.insert({
-        messageTitle: messageTitle, 
-        message: message,
-        score: 1,
-        email: getCurrEmail(),
-        votes: [Meteor.userId()] ,
-        createdAt: new Date().valueOf()
-      });
+
+      if (message.length && messageTitle.length) { 
+        
+        Messages.insert({
+          messageTitle: messageTitle, 
+          message: message,
+          score: 1,
+          email: getCurrEmail(),
+          votes: [Meteor.userId()],
+          createdAt: new Date().valueOf()
+        });
+
+        warning.setAttribute("id", "valid");
+
+        message = ''; 
+        messageTitle = '';
+
+      } else {
+
+        warning.setAttribute("id", "invalid");
+        
+      }
+
     }
   })
 }
